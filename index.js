@@ -10,6 +10,8 @@ const db = mysql.createConnection({
   database: "time_track",
 });
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.json("hello from backend");
 });
@@ -26,15 +28,15 @@ app.post("/entries", (req, res) => {
   const q =
     "INSERT INTO time_entries (`user_id`,`date`, `start_time`, `end_time`, `notes`) VALUES(?)";
   const values = [
-    1,
-    "2023-12-12",
-    "06:35:00",
-    "08:20:00",
-    "notes from backend",
+    req.body.user_id,
+    req.body.date,
+    req.body.start_time,
+    req.body.end_time,
+    req.body.notes,
   ];
   db.query(q, [values], (err, data) => {
     if (err) return res.json(err);
-    return res.json("new entry added");
+    return res.json("New time entry created successfully");
   });
 });
 
