@@ -24,11 +24,31 @@ app.get("/entries", (req, res) => {
   });
 });
 
+app.get("/weekly-timesheet", (req, res) => {
+  const q = `
+  SELECT
+  WEEK(date) AS week_number,
+  DAYNAME(date) AS day,
+  SUM(TIMESTAMPDIFF(MINUTE, start_time, end_time) / 60.0) AS total_hours
+FROM
+  time_entries
+WHERE
+  user_id = 1
+GROUP BY
+  week_number, DAYNAME(date);
+  `;
+  db.query(q, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+
 app.post("/entries", (req, res) => {
   const q =
     "INSERT INTO time_entries (`user_id`,`date`, `start_time`, `end_time`, `notes`) VALUES(?)";
   const values = [
-    req.body.user_id,
+    // req.body.user_id,
+    1,
     req.body.date,
     req.body.start_time,
     req.body.end_time,
