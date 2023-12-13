@@ -1,13 +1,17 @@
 import express from "express";
-import mysql, { createConnection } from "mysql";
+import mysql, { createConnection } from "mysql2";
 
 const app = express();
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "redass@15108058",
+  host: "192.168.0.102",
+  user: "root1",
+  password: "root",
   database: "time_track",
+  port: 3306,
+  authPlugins: {
+    mysql_clear_password: () => () => Buffer.from("root" + "\0"),
+  },
 });
 
 app.use(express.json());
