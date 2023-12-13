@@ -36,8 +36,9 @@ This Node.js backend provides an API for managing time entries. It uses Express 
    ```bash
    npm start
 
-   The server will run on http://localhost:8800 by default.
    ```
+
+   The server will run on http://localhost:8800 by default.
 
 ## Endpoints
 
