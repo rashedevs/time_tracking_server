@@ -1,14 +1,16 @@
 import express from "express";
 import mysql, { createConnection } from "mysql2";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 
 const db = mysql.createConnection({
-  host: process.env.DB_HOST || "192.168.0.102",
-  user: process.env.DB_USER || "root1",
-  password: process.env.DB_PASSWORD || "root",
-  database: process.env.DB_DATABASE || "time_track",
-  port: process.env.DB_PORT || 3306,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  port: process.env.DB_PORT,
   authPlugins: {
     mysql_clear_password: () => () => Buffer.from("root" + "\0"),
   },
@@ -72,6 +74,6 @@ app.post("/entries", (req, res) => {
   });
 });
 
-app.listen(8800, () => {
+app.listen(8800, "0.0.0.0", () => {
   console.log("Connected to backend!");
 });
