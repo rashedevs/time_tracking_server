@@ -11,9 +11,9 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT,
-  authPlugins: {
-    mysql_clear_password: () => () => Buffer.from("root" + "\0"),
-  },
+  // authPlugins: {
+  //   mysql_clear_password: () => () => Buffer.from("root" + "\0"),
+  // },
 });
 
 db.connect((err) => {
