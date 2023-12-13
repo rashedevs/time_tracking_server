@@ -4,11 +4,16 @@ import mysql, { createConnection } from "mysql2";
 const app = express();
 
 const db = mysql.createConnection({
-  host: "192.168.0.102",
-  user: "root1",
-  password: "root",
-  database: "time_track",
-  port: 3306,
+  // host: "192.168.0.102",
+  // user: "root1",
+  // password: "root",
+  // database: "time_track",
+  // port: 3306,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  port: process.env.DB_PORT,
   authPlugins: {
     mysql_clear_password: () => () => Buffer.from("root" + "\0"),
   },
