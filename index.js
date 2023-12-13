@@ -4,19 +4,22 @@ import mysql, { createConnection } from "mysql2";
 const app = express();
 
 const db = mysql.createConnection({
-  // host: "192.168.0.102",
-  // user: "root1",
-  // password: "root",
-  // database: "time_track",
-  // port: 3306,
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-  port: process.env.DB_PORT,
+  host: process.env.DB_HOST || "192.168.0.102",
+  user: process.env.DB_USER || "root1",
+  password: process.env.DB_PASSWORD || "root",
+  database: process.env.DB_DATABASE || "time_track",
+  port: process.env.DB_PORT || 3306,
   authPlugins: {
     mysql_clear_password: () => () => Buffer.from("root" + "\0"),
   },
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error("MySQL connection error:", err);
+    process.exit(1);
+  }
+  console.log("Connected to MySQL database");
 });
 
 app.use(express.json());
