@@ -15,7 +15,7 @@ This Node.js backend provides an API for managing time entries. It uses Express 
 1. **Clone the repository:**
 
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/rashedevs/time_tracking_server
    cd time-tracking-server
 
    ```
