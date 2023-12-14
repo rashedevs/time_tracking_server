@@ -1,6 +1,7 @@
 import express from "express";
 import mysql, { createConnection } from "mysql2";
 import dotenv from "dotenv";
+import cors from "cors"; // Import cors directly
 
 dotenv.config();
 const app = express();
@@ -24,6 +25,7 @@ db.connect((err) => {
 });
 
 app.use(express.json());
+app.use(cors()); // Enable CORS for all routes
 
 // Root endpoint
 app.get("/", (req, res) => {
